@@ -22,9 +22,20 @@ class car:
             for s in streets:
                 if self.path[p] == s[2]:
                     self.times.append(self.times[p - 1] + s[3])
-        print(self.path)
-        print(self.times)
 
-    def stopLight(self, timeStopped):
+    def currRoad(self, simTime):
+        for t in range(len(self.times)):
+            if self.times[t] >= simTime:
+                return self.path[t]
 
-        self.minTime += timeStopped
+    def atIntersection(self, simTime):
+        if simTime in self.times:
+            return self.currRoad(simTime)
+        else:
+            return False
+
+    def stopped(self, simTime):
+        i = self.times.index(simTime)
+
+        for t in range(i, len(self.times)):
+            self.times[t] += 1
