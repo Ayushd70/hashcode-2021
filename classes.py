@@ -7,12 +7,33 @@ class intersection:
         # [(road, seconds)]
         self.cycle = []
         self.currTime = 0
+        # {roads: [cars]}
         self.roadcars = {}
         self.currGreen = None
 
     def checkCycle(self):
         if len(self.cycle == len(self.roads)):
             self.cycleIsCompleted = True
+
+    def getSmallestWeight(self):
+        if self.checkCycle():
+            return
+        rWeight = None
+        rName = None
+        seconds = 0
+        for road, cars in self.roadcars.items():
+            # Already added to cycle
+            if road in cycle:
+                continue
+            # Smallest otherwise
+            smallest = min([c.weight for c in cars])
+            seconds = cars.index(smallest) + 1
+            if not rWeight or smallest < rWeight:
+                rWeight = smallest
+                rName = road
+        # Add this to cycle
+        cycle.append((rName, seconds))
+        self.checkCycle()
 
 
 class road:
@@ -31,11 +52,11 @@ class car:
         self.roadsLeft = road[1:]
         self.currRoad = road[0]
 
-    def move(self):
+    def move(self, time):
         self.currRoad = roadsLeft.pop(0)
         self.currTime += time
 
-    def wait(time):
+    def wait(self, time):
         self.currTime += time
 
     def calculateWeight(self):
