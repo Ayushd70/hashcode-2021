@@ -23,7 +23,7 @@ class intersection:
         seconds = 0
         for road, cars in self.roadcars.items():
             # Already added to cycle
-            if road in cycle:
+            if road in self.cycle:
                 continue
             # Smallest otherwise
             smallest = min([c.weight for c in cars])
@@ -32,7 +32,7 @@ class intersection:
                 rWeight = smallest
                 rName = road
         # Add this to cycle
-        cycle.append((rName, seconds))
+        self.cycle.append((rName, seconds))
         self.checkCycle()
 
 
@@ -53,7 +53,7 @@ class car:
         self.currRoad = road[0]
 
     def move(self, time):
-        self.currRoad = roadsLeft.pop(0)
+        self.currRoad = self.roadsLeft.pop(0)
         self.currTime += time
 
     def wait(self, time):
