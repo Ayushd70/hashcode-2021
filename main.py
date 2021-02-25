@@ -1,14 +1,13 @@
-from classes import car
-
+from classes import car, road, intersection
 
 def parseData(inputFile):
-    """
-    Returns a tuple:
+    '''
+    Returns a tuple: 
     ((D, I, F), streets, paths)
-    """
+    '''
 
     # Read lines
-    with open(inputFile, "r") as f:
+    with open(inputFile, 'r') as f:
         data = f.readlines()
     # Current read index
     ci = 0
@@ -33,8 +32,21 @@ def parseData(inputFile):
         ci += 1
     return ((D, I, F), streets, paths)
 
-
-constants, streets, cars = parseData("a.txt")
+constants, streets, paths = parseData('a.txt')
 D, I, F = constants
 
-print(D, I, F, streets, cars)
+print(D, I, F, streets, paths)
+
+roads = []
+cars = []
+intersections = []
+
+for s in range(len(streets)):
+    roads.append(road((streets[s][0], streets[s][1]), streets[s][2], streets[s][3]))
+
+for p in range(len(paths)):
+    cars.append(car(paths[0][1:]))
+
+for i in range(I):
+    intersections.append(intersection(I, roads))
+    
