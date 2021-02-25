@@ -1,41 +1,42 @@
 class intersection:
-    def __init__(self, roads, cars, gLight):
+    def __init__(self, number, roads):
+        self.number = number
+        # Roads objects
         self.roads = roads
-        self.cars = cars
-        self.gLight = gLight
+        self.cycleIsCompleted = False
+        # [(road, seconds)]
+        self.cycle = []
+        self.currTime = 0
+        self.roadcars = {}
+        self.currGreen = None
 
-    # def determineLight():
+    def checkCycle(self):
+        if len(self.cycle == len(self.roads)):
+            self.cycleIsCompleted = True
 
 
 class road:
-    def __init__(self, cars):
-        self.cars = cars
+    def __init__(self, intersections, name, time):
+        self.intersections = intersections
+        self.name = name
+        self.time = time
 
 
 class car:
     # Pass in index of paths array as parameter
-    def __init__(self, path, streets):
-        self.path = path[1:]
-        self.times = [0]
+    def __init__(self, road):
+        self.currTime = 0
+        self.weight = 0
+        # Roads objects
+        self.roadsLeft = road[1:]
+        self.currRoad = road[0]
 
-        for p in range(1, len(self.path)):
-            for s in streets:
-                if self.path[p] == s[2]:
-                    self.times.append(self.times[p - 1] + s[3])
+    def move(self):
+        self.currRoad = roadsLeft.pop(0)
+        self.currTime += time
 
-    def currRoad(self, simTime):
-        for t in range(len(self.times)):
-            if self.times[t] >= simTime:
-                return self.path[t]
+    def wait(time):
+        self.currTime += time
 
-    def atIntersection(self, simTime):
-        if simTime in self.times:
-            return self.currRoad(simTime)
-        else:
-            return False
-
-    def stopped(self, simTime):
-        i = self.times.index(simTime)
-
-        for t in range(i, len(self.times)):
-            self.times[t] += 1
+    def calculateWeight(self):
+        self.weight = sum([r.time for r in roadsLeft])
